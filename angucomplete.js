@@ -191,7 +191,7 @@ angular.module('angucomplete', [] )
                 }
                 $scope.searchStr = $scope.lastSearchTerm = result.title;
                 $scope.selectedObject = result;
-                $scope.callback(result);
+                $scope.callback()(result);
                 $scope.showDropdown = false;
                 $scope.results = [];
             }

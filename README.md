@@ -16,9 +16,9 @@ The two simple, yet important changes:
               titlefield="name"
               minlength="1"
               inputclass="form-control form-control-small"
-              callback="processChange()"/>
+              callback="process"/>
 ```
-* This assumes you have defined function processChange() in your current scope, accepting one argument, result object (the same as the one inserted into **selectedobject**)
+* This assumes you have defined function process() in your current scope, accepting one argument, result object (the same as the one inserted into **selectedobject**)
 
 
 angucomplete
