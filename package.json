@@ -1,10 +1,11 @@
 {
   "authors": [
-    "Daryl Rowland <daryl@cloudyclear.com>"
+    "Daryl Rowland <daryl@cloudyclear.com>",
+    "Adam Kecer <adam@kecer.net>"
   ],
   "name": "angucomplete",
   "description": "Awesome Autocompleteness for AngularJS",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "http://darylrowland.github.io/angucomplete/",
   "engines": {
     "node": ">= 0.8.4"

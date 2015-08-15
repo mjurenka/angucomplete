@@ -1,3 +1,26 @@
+Modifications
+=============
+
+This is a fork of original angucomplete plugin. You can found it here: https://github.com/darylrowland/angucomplete
+
+The two simple, yet important changes:
+* Fixed bower.json to include *css file
+* Added callback capability. Now you can add new argument to the directive, like this:
+```html
+<angucomplete id="ex1"
+              placeholder="Search countries"
+              pause="100"
+              selectedobject="selectedCountry"
+              localdata="countries"
+              searchfields="name"
+              titlefield="name"
+              minlength="1"
+              inputclass="form-control form-control-small"
+              callback="processChange()"/>
+```
+* This assumes you have defined function processChange() in your current scope, accepting one argument, result object (the same as the one inserted into **selectedobject**)
+
+
 angucomplete
 ============
 
