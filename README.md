@@ -3,7 +3,7 @@ Modifications
 
 This is a fork of original angucomplete plugin. You can found it here: https://github.com/darylrowland/angucomplete
 
-The two simple, yet important changes:
+Important changes:
 * Fixed bower.json to include *css file
 * Added callback capability. Now you can add new argument to the directive, like this:
 ```html
@@ -12,14 +12,13 @@ The two simple, yet important changes:
               pause="100"
               selectedobject="selectedCountry"
               localdata="countries"
-              searchfields="name"
-              titlefield="name"
               minlength="1"
               inputclass="form-control form-control-small"
               callback="process"/>
 ```
 * This assumes you have defined function process() in your current scope, accepting one argument, result object (the same as the one inserted into **selectedobject**)
-
+* Most fields have been removed. Now, localdata is expected to be an array.
+* Image support has been removed.
 
 angucomplete
 ============

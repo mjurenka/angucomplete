@@ -13,11 +13,6 @@ angular.module('angucomplete', [] )
             'placeholder': '@placeholder',
             'selectedObject': '=selectedobject',
             'url': '@url',
-            'dataField': '@datafield',
-            'titleField': '@titlefield',
-            'descriptionField': '@descriptionfield',
-            'imageField': '@imagefield',
-            'imageUri': '@imageuri',
             'inputClass': '@inputclass',
             'userPause': '@pause',
             'localData': '=localdata',
@@ -55,35 +50,9 @@ angular.module('angucomplete', [] )
                 if (responseData && responseData.length > 0) {
                     $scope.results = [];
 
-                    var titleFields = [];
-                    if ($scope.titleField && $scope.titleField !== '') {
-                        titleFields = $scope.titleField.split(',');
-                    }
-
                     for (var i = 0; i < responseData.length; i++) {
-                        // Get title variables
-                        var titleCode = [];
 
-                        for (var t = 0; t < titleFields.length; t++) {
-                            titleCode.push(responseData[i][titleFields[t]]);
-                        }
-
-                        var description = '';
-                        if ($scope.descriptionField) {
-                            description = responseData[i][$scope.descriptionField];
-                        }
-
-                        var imageUri = '';
-                        if ($scope.imageUri) {
-                            imageUri = $scope.imageUri;
-                        }
-
-                        var image = '';
-                        if ($scope.imageField) {
-                            image = imageUri + responseData[i][$scope.imageField];
-                        }
-
-                        var text = titleCode.join(' ');
+                        var text = responseData[i];
                         if ($scope.matchClass) {
                             var re = new RegExp(str, 'i');
                             var strPart = text.match(re)[0];
@@ -92,12 +61,10 @@ angular.module('angucomplete', [] )
 
                         var resultRow = {
                             title: text,
-                            description: description,
-                            image: image,
                             originalObject: responseData[i]
                         }
 
-                        $scope.results[$scope.results.length] = resultRow;
+                        $scope.results.push(resultRow);
                     }
 
 
@@ -111,30 +78,22 @@ angular.module('angucomplete', [] )
 
                 if (str.length >= $scope.minLength) {
                     if ($scope.localData) {
-                        var searchFields = $scope.searchFields.split(',');
-
                         var matches = [];
 
                         for (var i = 0; i < $scope.localData.length; i++) {
-                            var match = false;
-
-                            for (var s = 0; s < searchFields.length; s++) {
-                                match = match || (typeof $scope.localData[i][searchFields[s]] === 'string' && typeof str === 'string' && $scope.localData[i][searchFields[s]].toLowerCase().indexOf(str.toLowerCase()) >= 0);
-                            }
-
-                            if (match) {
-                                matches[matches.length] = $scope.localData[i];
+                            if ($scope.localData[i].toLowerCase().indexOf(str.toLowerCase()) !== -1) {
+                                matches.push($scope.localData[i]);
                             }
                         }
 
                         $scope.searching = false;
+                        console.log('searchTimerComplete calls processResults',matches,str);
                         $scope.processResults(matches, str);
-
                     } else {
                         $http.get($scope.url + str, {}).
                             success(function(responseData, status, headers, config) {
                                 $scope.searching = false;
-                                $scope.processResults((($scope.dataField) ? responseData[$scope.dataField] : responseData ), str);
+                                $scope.processResults(responseData, str);
                             }).
                             error(function(data, status, headers, config) {
                                 console.log('error');
@@ -189,7 +148,7 @@ angular.module('angucomplete', [] )
                 if ($scope.matchClass) {
                     result.title = result.title.toString().replace(/(<([^>]+)>)/ig, '');
                 }
-                $scope.searchStr = $scope.lastSearchTerm = result.title;
+                $scope.searchStr = '';
                 $scope.selectedObject = result;
                 $scope.callback()(result);
                 $scope.showDropdown = false;
