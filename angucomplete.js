@@ -75,7 +75,6 @@ angular.module('angucomplete', [] )
 
             $scope.searchTimerComplete = function(str) {
                 // Begin the search
-
                 if (str.length >= $scope.minLength) {
                     if ($scope.localData) {
                         var matches = [];
@@ -87,7 +86,6 @@ angular.module('angucomplete', [] )
                         }
 
                         $scope.searching = false;
-                        console.log('searchTimerComplete calls processResults',matches,str);
                         $scope.processResults(matches, str);
                     } else {
                         $http.get($scope.url + str, {}).
@@ -96,7 +94,6 @@ angular.module('angucomplete', [] )
                                 $scope.processResults(responseData, str);
                             }).
                             error(function(data, status, headers, config) {
-                                console.log('error');
                             });
                     }
                 }
@@ -122,9 +119,9 @@ angular.module('angucomplete', [] )
                 if (!(event.which === 38 || event.which === 40 || event.which === 13)) {
                     if (!$scope.searchStr || $scope.searchStr === '') {
                         $scope.showDropdown = false;
-                        $scope.lastSearchTerm = null
+                        $scope.lastSearchTerm = null;
                     } else if (isNewSearchNeeded($scope.searchStr, $scope.lastSearchTerm)) {
-                        $scope.lastSearchTerm = $scope.searchStr
+                        $scope.lastSearchTerm = $scope.searchStr;
                         $scope.showDropdown = true;
                         $scope.currentIndex = -1;
                         $scope.results = [];
@@ -152,6 +149,7 @@ angular.module('angucomplete', [] )
                 $scope.selectedObject = result;
                 $scope.callback()(result);
                 $scope.showDropdown = false;
+                $scope.lastSearchTerm = null;
                 $scope.results = [];
             }
 
