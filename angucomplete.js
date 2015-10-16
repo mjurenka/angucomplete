@@ -80,8 +80,10 @@ angular.module('angucomplete', [] )
                         var matches = [];
 
                         for (var i = 0; i < $scope.localData.length; i++) {
-                            if ($scope.localData[i].toLowerCase().indexOf(str.toLowerCase()) !== -1) {
-                                matches.push($scope.localData[i]);
+                            if ($scope.localData[i] !== null && $scope.localData[i] !== undefined) {
+                              if ($scope.localData[i].toLowerCase().indexOf(str.toLowerCase()) !== -1) {
+                                  matches.push($scope.localData[i]);
+                              }
                             }
                         }
 
